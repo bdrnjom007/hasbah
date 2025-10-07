@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>حاسبة التقسيط - حساب الأقساط الشهرية</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="header-content">
+                <i class="fas fa-calculator header-icon"></i>
+                <h1 class="header-title">حاسبة التقسيط الذكية</h1>
+                <p class="header-subtitle">احسب أقساطك الشهرية بدقة ووضوح</p>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <div class="calculator-section">
+                <div class="input-section">
+                    <h2 class="section-title">
+                        <i class="fas fa-money-bill-wave"></i>
+                        أدخل المبلغ المطلوب
+                    </h2>
+                    <div class="input-group">
+                        <div class="input-wrapper">
+                            <input 
+                                type="number" 
+                                id="amount-input" 
+                                class="amount-input form-control" 
+                                placeholder="أدخل المبلغ هنا"
+                                min="100"
+                                step="1"
+                            >
+                            <div class="currency-wrapper">
+                                <span class="currency-label">ريال سعودي</span>
+                            </div>
+                            <button id="clear-btn" class="clear-btn" title="مسح">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <button id="calculate-btn" class="btn btn--primary calculate-btn">
+                        <i class="fas fa-calculator"></i>
+                        احسب الأقساط
+                    </button>
+                </div>
+
+                <div id="results-section" class="results-section hidden">
+                    <h2 class="section-title">
+                        <i class="fas fa-chart-line"></i>
+                        خيارات التقسيط المتاحة
+                    </h2>
+                    
+                    <div class="installment-cards">
+                        <div class="installment-card" data-months="6">
+                            <div class="card-header">
+                                <div class="card-icon">
+                                    <i class="fas fa-clock"></i>
+                                </div>
+                                <h3 class="card-title">6 شهور</h3>
+                                <p class="interest-rate">فائدة 19% سنوياً</p>
+                            </div>
+                            <div class="card-body">
+                                <div class="amount-display">
+                                    <span class="amount-label">إجمالي المبلغ</span>
+                                    <span class="amount-value" id="total-6"></span>
+                                </div>
+                                <div class="monthly-payment">
+                                    <span class="payment-label">القسط الشهري</span>
+                                    <span class="payment-value" id="monthly-6"></span>
+                                </div>
+                                <div class="interest-info">
+                                    <span class="interest-label">إجمالي الفوائد</span>
+                                    <span class="interest-value" id="interest-6"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="installment-card popular" data-months="12">
+                            <div class="popular-badge">الأكثر شيوعاً</div>
+                            <div class="card-header">
+                                <div class="card-icon">
+                                    <i class="fas fa-calendar-alt"></i>
+                                </div>
+                                <h3 class="card-title">12 شهر</h3>
+                                <p class="interest-rate">فائدة 38% سنوياً</p>
+                            </div>
+                            <div class="card-body">
+                                <div class="amount-display">
+                                    <span class="amount-label">إجمالي المبلغ</span>
+                                    <span class="amount-value" id="total-12"></span>
+                                </div>
+                                <div class="monthly-payment">
+                                    <span class="payment-label">القسط الشهري</span>
+                                    <span class="payment-value" id="monthly-12"></span>
+                                </div>
+                                <div class="interest-info">
+                                    <span class="interest-label">إجمالي الفوائد</span>
+                                    <span class="interest-value" id="interest-12"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="installment-card" data-months="18">
+                            <div class="card-header">
+                                <div class="card-icon">
+                                    <i class="fas fa-calendar-check"></i>
+                                </div>
+                                <h3 class="card-title">18 شهر</h3>
+                                <p class="interest-rate">فائدة 57% سنوياً</p>
+                            </div>
+                            <div class="card-body">
+                                <div class="amount-display">
+                                    <span class="amount-label">إجمالي المبلغ</span>
+                                    <span class="amount-value" id="total-18"></span>
+                                </div>
+                                <div class="monthly-payment">
+                                    <span class="payment-label">القسط الشهري</span>
+                                    <span class="payment-value" id="monthly-18"></span>
+                                </div>
+                                <div class="interest-info">
+                                    <span class="interest-label">إجمالي الفوائد</span>
+                                    <span class="interest-value" id="interest-18"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="chart-section">
+                        <h3 class="chart-title">
+                            <i class="fas fa-chart-bar"></i>
+                            مقارنة الأقساط الشهرية
+                        </h3>
+                        <div class="chart-container" style="position: relative; height: 300px;">
+                            <canvas id="comparison-chart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="info-section">
+                    <h3 class="info-title">
+                        <i class="fas fa-info-circle"></i>
+                        حول الحاسبة
+                    </h3>
+                    <div class="info-content">
+                        <p>تستخدم هذه الحاسبة معادلة الفائدة البسيطة الثابتة لحساب الأقساط الشهرية بدقة. جميع الخيارات تتضمن رسوم الشراء البالغة 50 ريال.</p>
+                        <div class="calculation-formula">
+                            <h4>طريقة الحساب:</h4>
+                            <p><strong>إجمالي المبلغ =</strong> المبلغ الأساسي + (المبلغ الأساسي × نسبة الفائدة) + الرسوم</p>
+                            <p><strong>القسط الشهري =</strong> إجمالي المبلغ ÷ عدد الشهور</p>
+                        </div>
+                        <ul class="info-list">
+                            <li><strong>6 شهور:</strong> فائدة سنوية 19% مع أقل إجمالي فوائد</li>
+                            <li><strong>12 شهر:</strong> فائدة سنوية 38% مع توازن بين القسط والمدة</li>
+                            <li><strong>18 شهر:</strong> فائدة سنوية 57% مع أقل قسط شهري</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer class="footer">
+            <p>&copy; 2025 حاسبة التقسيط الذكية - جميع الحقوق محفوظة</p>
+        </footer>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
